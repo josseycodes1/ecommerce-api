@@ -4,6 +4,9 @@ import (
 	"database/sql"
 	"log"
 	"net/http"
+
+	"github.com/gorilla/mux"
+	"github.com/josseycodes1/ecom-api/cmd/service/user"
 )
 
 type APIServer struct {
@@ -21,6 +24,9 @@ func NewAPIServer(addr string, db *sql.DB) *APIServer {
 func (s *APIServer) Run() error {
 	router := mux.NewRouter()
 	subrouter := router.PathPrefix("/api/v1").Subrouter()
+
+	userHandler := user.Newhandler()
+	userHandler.RegisterRoutes(subrouter)
 
 	log.Println("Listening on", s.addr)
 
