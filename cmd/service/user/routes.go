@@ -9,10 +9,11 @@ import (
 )
 
 type Handler struct {
+	store *types.UserStore
 }
 
-func Newhandler() *Handler {
-	return &Handler{}
+func Newhandler(store types.UserStore) *Handler {
+	return &Handler{store: store}
 }
 
 func (h *Handler) RegisterRoutes(router *mux.Router) {
@@ -32,7 +33,8 @@ func (h *Handler) handleRegister(w http.ResponseWriter, r *http.Request) {
 		utils.WriteError(w, http.StatusBadRequest, err)
 	}
 
-	//check if user exist
+	//check if user exist by checking the database
+
 	//create user if it doesnt exist
 
 }
